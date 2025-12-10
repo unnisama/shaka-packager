@@ -37,6 +37,8 @@ class HlsNotifyMuxerListener : public MuxerListener {
   /// @param ext_x_media_group_id is the group ID for this playlist. This is the
   ///        value of GROUP-ID attribute for EXT-X-MEDIA. This may be empty for
   ///        video.
+  /// @param allowed_group_ids is the used for allowing only certain group IDs for
+  ///        this stream.
   /// @param characteristics is the characteristics for this playlist. This is
   ///        the value of CHARACTERISTICS attribute for EXT-X-MEDIA. This may be
   ///        empty.
@@ -48,6 +50,7 @@ class HlsNotifyMuxerListener : public MuxerListener {
                          bool iframes_only,
                          const std::string& ext_x_media_name,
                          const std::string& ext_x_media_group_id,
+                         const std::vector<std::string>& allowed_group_ids,
                          const std::vector<std::string>& characteristics,
                          bool forced,
                          hls::HlsNotifier* hls_notifier,
@@ -91,6 +94,7 @@ class HlsNotifyMuxerListener : public MuxerListener {
   const bool iframes_only_;
   const std::string ext_x_media_name_;
   const std::string ext_x_media_group_id_;
+  const std::vector<std::string> allowed_group_ids_;
   const std::vector<std::string> characteristics_;
   const bool forced_subtitle_;
   hls::HlsNotifier* const hls_notifier_;

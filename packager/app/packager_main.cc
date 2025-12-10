@@ -111,6 +111,8 @@ const char kUsage[] =
     "    EXT-X-MEDIA. Defaults to the base of the playlist name.\n"
     "  - hls_group_id: Used for HLS audio to set the GROUP-ID attribute for\n"
     "    EXT-X-MEDIA. Defaults to 'audio' if not specified.\n"
+    "  - hls_group_id_allowed: Optional colon separated\n"
+    "    list of values for the group id allowed for this stream.\n"
     "  - playlist_name: The HLS playlist file to create. Usually ends with\n"
     "    '.m3u8', and is relative to --hls_master_playlist_output. If\n"
     "    unspecified, defaults to something of the form 'stream_0.m3u8',\n"

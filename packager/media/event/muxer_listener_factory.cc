@@ -31,8 +31,8 @@ std::unique_ptr<MuxerListener> CreateMediaInfoDumpListenerInternal(
     bool use_segment_list) {
   DCHECK(!output.empty());
 
-  std::unique_ptr<MuxerListener> listener(
-      new VodMediaInfoDumpMuxerListener(output + kMediaInfoSuffix, use_segment_list));
+  std::unique_ptr<MuxerListener> listener(new VodMediaInfoDumpMuxerListener(
+      output + kMediaInfoSuffix, use_segment_list));
   return listener;
 }
 
@@ -62,6 +62,7 @@ std::list<std::unique_ptr<MuxerListener>> CreateHlsListenersInternal(
   const std::string& group_id = stream.hls_group_id;
   const std::string& iframe_playlist_name = stream.hls_iframe_playlist_name;
   const std::vector<std::string>& characteristics = stream.hls_characteristics;
+  const std::vector<std::string>& allowed_groups = stream.hls_group_id_allowed;
   const bool forced_subtitle = stream.forced_subtitle;
 
   if (name.empty()) {
@@ -74,12 +75,24 @@ std::list<std::unique_ptr<MuxerListener>> CreateHlsListenersInternal(
 
   const bool kIFramesOnly = true;
   std::list<std::unique_ptr<MuxerListener>> listeners;
+
+  if (allowed_groups.size() > 0) {
+    std::stringstream group_ids;
+
+    for (unsigned long idx = 0; idx < allowed_groups.size() - 1; idx++) {
+      group_ids << allowed_groups[idx] << ",";
+    }
+    group_ids << allowed_groups[allowed_groups.size() - 1];
+
+    LOG(INFO) << "Groups: " << group_ids.str();
+  }
+
   listeners.emplace_back(new HlsNotifyMuxerListener(
-      playlist_name, !kIFramesOnly, name, group_id, characteristics,
-      forced_subtitle, notifier, stream.index));
+      playlist_name, !kIFramesOnly, name, group_id, allowed_groups,
+      characteristics, forced_subtitle, notifier, stream.index));
   if (!iframe_playlist_name.empty()) {
     listeners.emplace_back(new HlsNotifyMuxerListener(
-        iframe_playlist_name, kIFramesOnly, name, group_id,
+        iframe_playlist_name, kIFramesOnly, name, group_id, allowed_groups,
         std::vector<std::string>(), forced_subtitle, notifier, stream.index));
   }
   return listeners;
@@ -111,9 +124,8 @@ std::unique_ptr<MuxerListener> MuxerListenerFactory::CreateListener(
     std::unique_ptr<CombinedMuxerListener> combined_listener(
         new CombinedMuxerListener);
     if (output_media_info_) {
-      combined_listener->AddListener(
-          CreateMediaInfoDumpListenerInternal(stream.media_info_output,
-                                              use_segment_list_));
+      combined_listener->AddListener(CreateMediaInfoDumpListenerInternal(
+          stream.media_info_output, use_segment_list_));
     }
 
     if (mpd_notifier_ && !stream.hls_only) {

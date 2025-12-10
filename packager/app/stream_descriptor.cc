@@ -29,6 +29,7 @@ enum FieldType {
   kOutputFormatField,
   kHlsNameField,
   kHlsGroupIdField,
+  kHlsGroupIdAllowedField,
   kHlsPlaylistNameField,
   kHlsIframePlaylistNameField,
   kTrickPlayFactorField,
@@ -69,6 +70,7 @@ const FieldNameToTypeMapping kFieldNameTypeMappings[] = {
     {"format", kOutputFormatField},
     {"hls_name", kHlsNameField},
     {"hls_group_id", kHlsGroupIdField},
+    {"hls_group_id_allowed", kHlsGroupIdAllowedField},
     {"playlist_name", kHlsPlaylistNameField},
     {"iframe_playlist_name", kHlsIframePlaylistNameField},
     {"trick_play_factor", kTrickPlayFactorField},
@@ -164,6 +166,11 @@ std::optional<StreamDescriptor> ParseStreamDescriptor(
       }
       case kHlsGroupIdField: {
         descriptor.hls_group_id = pair.second;
+        break;
+      }
+      case kHlsGroupIdAllowedField: {
+        descriptor.hls_group_id_allowed =
+            SplitAndTrimSkipEmpty(pair.second, ':');
         break;
       }
       case kHlsPlaylistNameField: {

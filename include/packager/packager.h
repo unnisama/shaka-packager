@@ -133,6 +133,7 @@ struct StreamDescriptor {
   /// Required for audio when outputting HLS. It defines the group ID for the
   /// output stream. This is used as the GROUP-ID attribute for EXT-X-MEDIA.
   std::string hls_group_id;
+  std::vector<std::string> hls_group_id_allowed;
   /// Required for HLS output. It defines the name of the playlist for the
   /// stream. Usually ends with `.m3u8`.
   std::string hls_playlist_name;

@@ -75,12 +75,14 @@ class MediaPlaylist {
   MediaPlaylist(const HlsParams& hls_params,
                 const std::string& file_name,
                 const std::string& name,
+                const std::vector<std::string>& allowed_groups,
                 const std::string& group_id);
   virtual ~MediaPlaylist();
 
   const std::string& file_name() const { return file_name_; }
   const std::string& name() const { return name_; }
   const std::string& group_id() const { return group_id_; }
+  const std::vector<std::string>& allowed_groups() const { return allowed_groups_; }
   MediaPlaylistStreamType stream_type() const { return stream_type_; }
   const std::string& codec() const { return codec_; }
   const std::string& supplemental_codec() const { return supplemental_codec_; }
@@ -279,6 +281,7 @@ class MediaPlaylist {
   // Mainly for MasterPlaylist to use these values.
   const std::string file_name_;
   const std::string name_;
+  const std::vector<std::string> allowed_groups_;
   const std::string group_id_;
   MediaInfo media_info_;
   MediaPlaylistStreamType stream_type_ = MediaPlaylistStreamType::kUnknown;

@@ -11,6 +11,11 @@ HLS specific stream descriptor fields
     Used for HLS audio to set the GROUP-ID attribute for EXT-X-MEDIA.
     Defaults to 'audio' if not specified.
 
+:hls_group_id_allowed:
+    This field indicates whether the HLS GROUP-ID attribute is allowed to be
+    set for this stream. Only colon separated values are allowed such as 'group_1:group_2:group_3'
+    Defaults to '' if not specified.
+
 :playlist_name:
 
     The HLS playlist file to create. Usually ends with '.m3u8', and is

@@ -50,6 +50,7 @@ class MuxerListenerFactory {
     std::string hls_group_id;
     std::string hls_name;
     std::string hls_playlist_name;
+    std::vector<std::string> hls_group_id_allowed;
     std::string hls_iframe_playlist_name;
     std::vector<std::string> hls_characteristics;
     bool forced_subtitle = false;

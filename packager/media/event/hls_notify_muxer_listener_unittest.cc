@@ -98,6 +98,8 @@ const bool kIFramesOnlyPlaylist = true;
 const char kDefaultPlaylistName[] = "default_playlist.m3u8";
 const char kDefaultName[] = "DEFAULTNAME";
 const char kDefaultGroupId[] = "DEFAULTGROUPID";
+const char kAllowedGroupIdA[] = "audio";
+const char kAllowedGroupIdB[] = "video";
 const char kCharactersticA[] = "public.accessibility.transcribes-spoken-dialog";
 const char kCharactersticB[] = "public.easy-to-read";
 const bool kForced = false;
@@ -122,6 +124,7 @@ class HlsNotifyMuxerListenerTest : public ::testing::Test {
                   !kIFramesOnlyPlaylist,
                   kDefaultName,
                   kDefaultGroupId,
+                  std::vector<std::string>{kAllowedGroupIdA, kAllowedGroupIdB},
                   std::vector<std::string>{kCharactersticA, kCharactersticB},
                   kForced,
                   &mock_notifier_,
@@ -461,6 +464,7 @@ class HlsNotifyMuxerListenerKeyFrameTest : public TestWithParam<bool> {
                   GetParam(),
                   kDefaultName,
                   kDefaultGroupId,
+                  std::vector<std::string>{kAllowedGroupIdA, kAllowedGroupIdB},
                   std::vector<std::string>(),  // no characteristics.
                   kForced,
                   &mock_notifier_,

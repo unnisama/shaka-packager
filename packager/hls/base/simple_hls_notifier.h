@@ -33,6 +33,7 @@ class MediaPlaylistFactory {
   virtual std::unique_ptr<MediaPlaylist> Create(const HlsParams& hls_params,
                                                 const std::string& file_name,
                                                 const std::string& name,
+                                                const std::vector<std::string>& allowed_groups,
                                                 const std::string& group_id);
 };
 
@@ -50,6 +51,7 @@ class SimpleHlsNotifier : public HlsNotifier {
                        const std::string& playlist_name,
                        const std::string& stream_name,
                        const std::string& group_id,
+                       const std::vector<std::string>& allowed_groups,
                        uint32_t* stream_id) override;
   bool NotifySampleDuration(uint32_t stream_id,
                             int32_t sample_duration) override;

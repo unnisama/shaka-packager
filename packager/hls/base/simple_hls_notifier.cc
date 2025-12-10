@@ -266,9 +266,11 @@ std::unique_ptr<MediaPlaylist> MediaPlaylistFactory::Create(
     const HlsParams& hls_params,
     const std::string& file_name,
     const std::string& name,
+    const std::vector<std::string>& allowed_groups,
     const std::string& group_id) {
+      LOG(INFO) << "Group_id: " << group_id;
   return std::unique_ptr<MediaPlaylist>(
-      new MediaPlaylist(hls_params, file_name, name, group_id));
+      new MediaPlaylist(hls_params, file_name, name, allowed_groups, group_id));
 }
 
 SimpleHlsNotifier::SimpleHlsNotifier(const HlsParams& hls_params)
@@ -301,6 +303,7 @@ bool SimpleHlsNotifier::NotifyNewStream(const MediaInfo& media_info,
                                         const std::string& playlist_name,
                                         const std::string& name,
                                         const std::string& group_id,
+                                        const std::vector<std::string>& allowed_groups,
                                         uint32_t* stream_id) {
   DCHECK(stream_id);
 
@@ -309,7 +312,7 @@ bool SimpleHlsNotifier::NotifyNewStream(const MediaInfo& media_info,
 
   std::unique_ptr<MediaPlaylist> media_playlist =
       media_playlist_factory_->Create(hls_params(), relative_playlist_path,
-                                      name, group_id);
+                                      name, allowed_groups, group_id);
   MediaInfo adjusted_media_info = MakeMediaInfoPathsRelativeToPlaylist(
       media_info, hls_params().base_url, master_playlist_dir_,
       media_playlist->file_name());

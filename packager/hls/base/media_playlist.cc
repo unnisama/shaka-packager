@@ -351,14 +351,28 @@ std::string EncryptionInfoEntry::ToString(std::string tag_name) {
 MediaPlaylist::MediaPlaylist(const HlsParams& hls_params,
                              const std::string& file_name,
                              const std::string& name,
+                             const std::vector<std::string>& allowed_groups,
                              const std::string& group_id)
     : hls_params_(hls_params),
       file_name_(file_name),
       name_(name),
+      allowed_groups_(allowed_groups),
       group_id_(group_id),
       media_sequence_number_(hls_params_.media_sequence_number),
       reference_time_(absl::InfinitePast()) {
   // When there's a forced media_sequence_number, start with discontinuity
+   if (allowed_groups_.size() > 0) {
+    std::stringstream group_ids;
+
+    for (unsigned long idx = 0; idx < allowed_groups_.size() - 1; idx++) {
+      group_ids << allowed_groups_[idx] << ",";
+    }
+    group_ids << allowed_groups_[allowed_groups_.size() - 1];
+
+    LOG(INFO) << "Groups: " << group_ids.str();
+  }
+
+
   if (media_sequence_number_ > 0)
     entries_.emplace_back(new DiscontinuityEntry());
 }
