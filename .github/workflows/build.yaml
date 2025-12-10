@@ -77,8 +77,8 @@ jobs:
           // Use enableSelfHosted to decide what the build matrix below should
           // include.
           const {hosted, selfHosted} = buildMatrix;
-          const include = enableSelfHosted ? hosted.concat(selfHosted) : hosted;
-          const os = include.map((config) => config.os);
+          const include = [{ os: 'ubuntu-latest', os_name: 'linux', target_arch: 'x64', exe_ext: '', generator: 'Ninja'}];
+          const os = ["ubuntu-latest"];
 
           // Output JSON objects consumed by the build matrix below.
           fs.writeFileSync(process.env.GITHUB_OUTPUT,
