@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [3.5.0](https://github.com/unnisama/shaka-packager/compare/v3.4.2...v3.5.0) (2025-12-10)
+
+
+### Features
+
+* Add support for EXT-X-PROGRAM-DATE-TIME tag ([#1521](https://github.com/unnisama/shaka-packager/issues/1521)) ([73b4048](https://github.com/unnisama/shaka-packager/commit/73b40484924108953f9e3318574d92af135f22ea)), closes [#365](https://github.com/unnisama/shaka-packager/issues/365)
+* **ci:** Official multiarch docker images for x64 + arm64 ([#1490](https://github.com/unnisama/shaka-packager/issues/1490)) ([9a6b2a5](https://github.com/unnisama/shaka-packager/commit/9a6b2a50c07d61abf80e66478540948919d1ab2b))
+* MV-HEVC support for stereo video ([#1488](https://github.com/unnisama/shaka-packager/issues/1488)) ([c22c379](https://github.com/unnisama/shaka-packager/commit/c22c379123b683e8e4d231533d6ed24e134f6b61))
+
+
+### Bug Fixes
+
+* Fix supplemental properties pointing to wrong AdaptationSet IDs ([#1520](https://github.com/unnisama/shaka-packager/issues/1520)) ([5776b0b](https://github.com/unnisama/shaka-packager/commit/5776b0b60d52c41732279e17fa2388d72d5a606d)), closes [#1500](https://github.com/unnisama/shaka-packager/issues/1500)
+* HLS identity key added inappropriately ([#1499](https://github.com/unnisama/shaka-packager/issues/1499)) ([f6a1a35](https://github.com/unnisama/shaka-packager/commit/f6a1a35e285d4edffa1a3f3cdb708aa85cfdfcab))
+* Upgrade libpng to fix build on new macs ([#1507](https://github.com/unnisama/shaka-packager/issues/1507)) ([7cd7e48](https://github.com/unnisama/shaka-packager/commit/7cd7e48e9cfd008542c2f7c7c292bde15837a15e))
+
 ## [3.4.2](https://github.com/shaka-project/shaka-packager/compare/v3.4.1...v3.4.2) (2025-01-17)
 
 
