@@ -25,6 +25,22 @@ on:
         required: false
         type: boolean
         default: false
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref (branch, tag, or SHA) to run the workflow on"
+        required: true
+        type: string
+      debug:
+        description: "Start a debug SSH server on failure"
+        required: false
+        type: boolean
+        default: false
+      self_hosted:
+        description: "Enable self-hosted runners"
+        required: false
+        type: boolean
+        default: false
 
 # By default, run all commands in a bash shell.  On Windows, the default would
 # otherwise be powershell.
